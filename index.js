@@ -13,7 +13,7 @@ mongoose.connect("mongodb+srv://adarsh-admin:AoUJo2luTwjrCDHv@cluster0.jjs5s.mon
 //     }
 // })
 
-const PORT=process.env.PORT||80;
+const PORT=process.env.PORT || 8080;
 const app=express();
 const api=require('./routes/api');
 app.use(cors());
@@ -24,7 +24,7 @@ app.use(express.static('ngApp'));
 app.use('/api',api);
 
 
-app.get('/',(req,res)=>{
+app.get('/',(req,res)=>{ 
     res.send('Hello World!');
 })
 
