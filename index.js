@@ -27,7 +27,9 @@ app.use('/api',api);
 app.get('/',(req,res)=>{ 
     res.send('Hello World!');
 })
-
+app.get('*',(req,res)=>{
+    res.sendFile(__dirname+'/ngApp/index.html');
+})
 app.listen(PORT,()=>{
     console.log(`Server is running at http://localhost:${PORT}`);
 })
