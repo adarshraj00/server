@@ -29,6 +29,7 @@ router.get('/',function(req,res){
 
 router.post('/register',(req,res)=>{
     let userData=req.body;
+    
     console.log(userData);
     let user=new User(userData);
     console.log(user);
