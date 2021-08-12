@@ -55,7 +55,7 @@ router.post('/register',(req,res)=>{
 router.post('/login',(req,res)=>{
 let userData=req.body;
 console.log(userData);
-    User.findOne({name:userData.userName},(err,user)=>{// callback function that either gives a error or matched user
+    User.findOne({userName:userData.userName},(err,user)=>{// callback function that either gives a error or matched user
         if(err){
             console.log(err);
             res.send(err);
