@@ -2,7 +2,7 @@ const express=require('express');
 const mongoose=require('mongoose');
 const cors=require('cors')
 
-mongoose.connect("mongodb+srv://adarsh-admin:AoUJo2luTwjrCDHv@cluster0.jjs5s.mongodb.net/lol", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://adarsh-admin:AoUJo2luTwjrCDHv@cluster0.jjs5s.mongodb.net/lol", {useNewUrlParser: true, useUnifiedTopology: true,returnOriginal: false,useFindAndModify: false});
 // mongoose.connect('mongodb://localhost:27017/lol', {useNewUrlParser: true, useUnifiedTopology: true});
 // mongoose.connection.on('connected',()=>{
 //     console.log("connected to mongo");
