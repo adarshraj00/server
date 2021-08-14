@@ -98,21 +98,24 @@ router.post("/update", verify, async (req, res) => {
   let found = await User.findOne({ _id: req.userId }).exec();
   if (found === null) {
     res.status(401).send("error");
-  } else {
-    let flag = 0;
-    console.log(found, "hwoidjinlk");
-    User.countDocuments({ userName: found.userName }).exec((err, count) => {
-      if (count === 1 && found.userName!==req.body.userName) {
-        res.status(401).send("error");
-      }
-    });
-
-    let doc = await User.findOneAndUpdate({ _id: req.userId }, req.body, {
-      new: true,
-    });
-    console.log(doc);
-    res.json(doc);
+  } else if (
+    req.body.userName !== undefined &&
+    req.body.userName !== found.userName // IF USER NAME IS TO BE EDITED AND USERNAME IS NOT THE SAME AS PREVIOUS ONE
+  ) {
+    console.log("inside if");
+    console.log("username");
+    let count=await User.countDocuments({ userName: req.body.userName })
+    console.log(count);
+    if(count===1){
+        return res.status(401).send("username already exists");
+     }
   }
+  let doc = await User.findOneAndUpdate({ _id: req.userId }, req.body, {
+    new: true,
+  });
+  console.log(doc);
+  res.status(200).json(doc);
+
 });
 
 module.exports = router;
