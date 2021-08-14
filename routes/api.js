@@ -102,7 +102,7 @@ router.post("/update", verify, async (req, res) => {
     let flag = 0;
     console.log(found, "hwoidjinlk");
     User.countDocuments({ userName: found.userName }).exec((err, count) => {
-      if (count > 1) {
+      if (count === 1 && found.userName!==req.body.userName) {
         res.status(401).send("error");
       }
     });
