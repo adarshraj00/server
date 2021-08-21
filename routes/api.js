@@ -2,6 +2,7 @@ const express = require("express");
 const User = require("../models/user");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const Resume=require("../models/resume");
 
 const verify = (req, res, next) => {
   console.log(req.headers.authorization);
@@ -118,4 +119,31 @@ router.post("/update", verify, async (req, res) => {
 
 });
 
+router.post('/registerdata',verify,(req,res)=>{
+  //  console.log(req.body);
+   const resume=new Resume({userid:req.userId,resume:req.body});
+   resume.save((err,resume)=>{
+       if(err){
+           console.log(err);
+       }
+       else{
+           console.log(resume);
+       }
+   })
+  //  console.log(resume);
+   res.status(200).send("data saved");
+})
+router.get('/getdata',verify,(req,res)=>{
+    Resume.find({userid:req.userId},(err,resume)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(resume);
+            const RESUME=resume[0].get('resume');
+            console.log(RESUME);
+            res.status(200).send(RESUME);
+        }
+    })
+})
 module.exports = router;
