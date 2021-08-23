@@ -80,8 +80,9 @@ router.post("/login", (req, res) => {
 router.get("/special", (req, verify, res) => {
   res.status(200).send("special route");
 });
-router.get("/userData", verify, (req, res) => {
+router.get("/userData", verify,async (req, res) => {
   // console.log("test")
+
   User.findOne({ _id: req.userId }, (err, user) => {
     if (err) {
       console.log(err);
@@ -119,8 +120,13 @@ router.post("/update", verify, async (req, res) => {
 
 });
 
-router.post('/registerdata',verify,(req,res)=>{
+router.post('/registerdata',verify,async (req,res)=>{
   //  console.log(req.body);
+  const found=await Resume.find({userid:req.userId}).exec();
+  console.log(found);
+  console.log("testing for found")
+  if(found.length===0){
+    console.log("data not present and updating");
    const resume=new Resume({userid:req.userId,resume:req.body});
    resume.save((err,resume)=>{
        if(err){
@@ -130,7 +136,19 @@ router.post('/registerdata',verify,(req,res)=>{
            console.log(resume);
        }
    })
-  //  console.log(resume);
+  }
+  else{
+    console.log("already present",found);
+      Resume.findOneAndUpdate({userid:req.userId},{resume:req.body},{new:true},(err,resume)=>{
+          if(err){
+              console.log(err);
+          }
+          else{
+              console.log(resume);
+          }
+      })
+  }
+  
    res.status(200).send("data saved");
 })
 router.get('/getdata',verify,(req,res)=>{
@@ -139,6 +157,10 @@ router.get('/getdata',verify,(req,res)=>{
             console.log(err);
         }
         else{
+            if(resume[0]===undefined){
+              res.status(404).send("no data");
+              return;
+            }
             console.log(resume);
             const RESUME=resume[0].get('resume');
             console.log(RESUME);

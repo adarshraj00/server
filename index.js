@@ -11,7 +11,7 @@ mongoose.connect("mongodb+srv://adarsh-admin:AoUJo2luTwjrCDHv@cluster0.jjs5s.mon
 //     if(err){
 //         console.log("error on connecting to db");
 //     }
-// })
+// })present
 
 const PORT=process.env.PORT || 3000;
 const app=express();
