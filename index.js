@@ -34,6 +34,3 @@ app.listen(PORT,()=>{
     console.log(`Server is running at http://localhost:${PORT}`);
 })
 
-
-//mongo "mongodb+srv://cluster0.jjs5s.mongodb.net/myFirstDatabase" --username adarsh-admin
-// to connect via terminal
